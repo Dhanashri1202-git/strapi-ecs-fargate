@@ -14,7 +14,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           view = "timeSeries"
           stacked = false
           metrics = [
-            [ "AWS/ECS", "CPUUtilization", "ClusterName", var.project_name, { "stat": "Average" } ]
+            [ "AWS/ECS", "CPUUtilization", "ClusterName", var.project_name, "ServiceName", "strapi-ecs-service", { "stat": "Average" } ]
           ]
           region = var.aws_region
         }
@@ -30,7 +30,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           view = "timeSeries"
           stacked = false
           metrics = [
-            [ "AWS/ECS", "MemoryUtilization", "ClusterName", var.project_name, { "stat": "Average" } ]
+            [ "AWS/ECS", "MemoryUtilization", "ClusterName", var.project_name, "ServiceName", "strapi-ecs-service", { "stat": "Average" } ]
           ]
           region = var.aws_region
         }
@@ -46,8 +46,8 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           view = "timeSeries"
           stacked = false
           metrics = [
-            [ "AWS/ECS", "NetworkRxBytes", "ClusterName", var.project_name ],
-            [ ".", "NetworkTxBytes", ".", "." ]
+            [ "AWS/ECS", "NetworkRxBytes", "ClusterName", var.project_name, "ServiceName", "strapi-ecs-service", { "stat": "Sum" } ],
+            [ ".", "NetworkTxBytes", ".", ".", ".", ".", { "stat": "Sum" } ]
           ]
           region = var.aws_region
         }
