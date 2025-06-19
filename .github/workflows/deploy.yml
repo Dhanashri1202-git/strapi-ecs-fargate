@@ -26,12 +26,12 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image
+    - name: Build and Push Docker image
       run: |
         docker build -t $DOCKER_IMAGE:latest ./strapi
         docker push $DOCKER_IMAGE:latest
 
-    - name: Setup Terraform
+    - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
     - name: Configure AWS Credentials
