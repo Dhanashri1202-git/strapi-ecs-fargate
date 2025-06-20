@@ -39,18 +39,6 @@ resource "aws_lb_listener" "http" {
     target_group_arn = aws_lb_target_group.strapi.arn
   }
 }
-resource "aws_lb_listener" "https" {
-  load_balancer_arn = aws_lb.strapi.arn
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "<your-certificate-arn>"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.strapi.arn
-  }
-}
 
 resource "aws_ecs_service" "strapi" {
   name            = "${var.project_name}-service"
