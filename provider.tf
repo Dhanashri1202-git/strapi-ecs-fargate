@@ -10,7 +10,7 @@ terraform {
     }
   }
 
-  backend "s3" {
+    backend "s3" {
     bucket         = "strapi-ecs-tf-state-bucket"
     key            = "terraform.tfstate"
     region         = "eu-north-1"

@@ -43,9 +43,16 @@ resource "aws_lb_listener" "http" {
 resource "aws_ecs_service" "strapi" {
   name            = "${var.project_name}-service"
   cluster         = aws_ecs_cluster.strapi.id
-  launch_type     = "FARGATE"
   task_definition = aws_ecs_task_definition.strapi.arn
   desired_count   = 1
+
+  # Removed launch_type when using capacity provider strategy
+  # launch_type     = "FARGATE" ← REMOVED this line
+
+  capacity_provider_strategy {
+    capacity_provider = "FARGATE_SPOT"
+    weight            = 1
+  }
 
   network_configuration {
     subnets         = [aws_subnet.public_a.id, aws_subnet.public_b.id]
@@ -64,3 +71,4 @@ resource "aws_ecs_service" "strapi" {
     aws_iam_role_policy_attachment.ecs_task_execution_attach
   ]
 }
+
