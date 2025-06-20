@@ -10,13 +10,14 @@ terraform {
     }
   }
 
-    backend "s3" {
-    bucket         = "strapi-ecs-tf-state-bucket"
-    key            = "terraform.tfstate"
-    region         = "eu-north-1"
-    dynamodb_table = "strapi-ecs-lock-table"
-    encrypt        = true
-  }
+   
+   backend "s3" {
+     bucket         = "strapi-ecs-tf-state-bucket"
+     key            = "terraform.tfstate"
+     region         = "eu-north-1"
+     dynamodb_table = "strapi-ecs-lock-table"
+     encrypt        = true
+   }
 }
 
 provider "aws" {
