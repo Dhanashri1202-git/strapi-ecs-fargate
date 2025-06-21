@@ -18,7 +18,7 @@ resource "aws_lb_target_group" "strapi" {
   target_type  = "ip"
 
   health_check {
-    path                = "/admin"
+    path                = "/"
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
