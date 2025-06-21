@@ -1,8 +1,17 @@
 resource "aws_cloudwatch_log_group" "strapi" {
-  name              = "/ecs/strapi"
+  name              = "/ecs/${var.project_name}"
   retention_in_days = 7
 
   tags = {
-    Name = "strapi-log-group"
+    Name = "${var.project_name}-log-group"
   }
 }
+1~resource "aws_cloudwatch_log_group" "strapi" {
+  name              = "/ecs/${var.project_name}"
+  retention_in_days = 7
+
+  tags = {
+    Name = "${var.project_name}-log-group"
+  }
+}
+

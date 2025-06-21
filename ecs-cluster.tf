@@ -1,8 +1,7 @@
-# terraform/ecs-cluster.tf
-
 resource "aws_ecs_cluster" "strapi" {
-  name = "${var.project_name}-cluster"
+  name = "${var.project_name}-${var.aws_region}-cluster"
 }
+
 resource "aws_ecs_cluster_capacity_providers" "strapi_capacity_providers" {
   cluster_name = aws_ecs_cluster.strapi.name
 
@@ -13,3 +12,4 @@ resource "aws_ecs_cluster_capacity_providers" "strapi_capacity_providers" {
     weight            = 1
   }
 }
+

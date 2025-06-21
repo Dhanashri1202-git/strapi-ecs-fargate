@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "tf_state" {
-  bucket = "${var.project_name}-tf-state-bucket"
+  bucket = "${var.project_name}-${var.aws_region}-tf-state"
 
   versioning {
     enabled = true
@@ -14,14 +14,14 @@ resource "aws_s3_bucket" "tf_state" {
   }
 
   tags = {
-    Name = "${var.project_name}-tf-state"
+    Name = "${var.project_name}-${var.aws_region}-tf-state"
   }
 }
 
 resource "aws_dynamodb_table" "tf_lock" {
-  name           = "${var.project_name}-lock-table"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "LockID"
+  name         = "${var.project_name}-${var.aws_region}-lock-table"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
 
   attribute {
     name = "LockID"
@@ -29,6 +29,7 @@ resource "aws_dynamodb_table" "tf_lock" {
   }
 
   tags = {
-    Name = "${var.project_name}-lock-table"
+    Name = "${var.project_name}-${var.aws_region}-lock-table"
   }
 }
+

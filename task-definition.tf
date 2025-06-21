@@ -1,7 +1,5 @@
-# terraform/task-definition.tf
-
 resource "aws_ecs_task_definition" "strapi" {
-  family                   = "${var.project_name}-task"
+  family                   = "${var.project_name}-${var.aws_region}-task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "512"
@@ -29,7 +27,7 @@ resource "aws_ecs_task_definition" "strapi" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = "/ecs/strapi"
+          awslogs-group         = "/ecs/${var.project_name}"
           awslogs-region        = var.aws_region
           awslogs-stream-prefix = "ecs"
         }
@@ -37,3 +35,4 @@ resource "aws_ecs_task_definition" "strapi" {
     }
   ])
 }
+

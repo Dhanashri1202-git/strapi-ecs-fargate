@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
-  dashboard_name = "strapi-ecs-dashboard"
+  dashboard_name = "${var.project_name}-${var.aws_region}-dashboard"
 
   dashboard_body = jsonencode({
     widgets = [
@@ -13,11 +13,11 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           title = "ECS CPU & Memory Utilization",
           view = "timeSeries",
           stacked = false,
-          region = "ap-south-1",
+          region = var.aws_region,
           period = 300,
           stat = "Average",
           metrics = [
-            [ "AWS/ECS", "CPUUtilization", "ServiceName", "strapi-ecs-service", "ClusterName", "strapi-ecs-cluster", { "color": "#ff7f0e" } ],
+            [ "AWS/ECS", "CPUUtilization", "ServiceName", "${var.project_name}-${var.aws_region}-service", "ClusterName", "${var.project_name}-${var.aws_region}-cluster" ],
             [ ".", "MemoryUtilization", ".", ".", ".", ".", { "visible": false } ]
           ]
         }
@@ -32,12 +32,13 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           title = "Memory Utilization Only",
           view = "timeSeries",
           stacked = false,
-          region = "ap-south-1",
+          region = var.aws_region,
           metrics = [
-            [ "AWS/ECS", "MemoryUtilization", "ServiceName", "strapi-ecs-service", "ClusterName", "strapi-ecs-cluster" ]
+            [ "AWS/ECS", "MemoryUtilization", "ServiceName", "${var.project_name}-${var.aws_region}-service", "ClusterName", "${var.project_name}-${var.aws_region}-cluster" ]
           ]
         }
       }
     ]
   })
 }
+

@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "${var.project_name}-task-exec-role"
+  name = "${var.project_name}-${var.aws_region}-exec-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -15,7 +15,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 
   tags = {
-    Name = "${var.project_name}-exec-role"
+    Name = "${var.project_name}-${var.aws_region}-exec-role"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_attach" {
 }
 
 resource "aws_iam_policy" "ecs_cloudwatch_logs_policy" {
-  name        = "${var.project_name}-cloudwatch-logs-policy"
+  name        = "${var.project_name}-${var.aws_region}-logs-policy"
   description = "Allows ECS tasks to send logs and publish metrics to CloudWatch"
 
   policy = jsonencode({

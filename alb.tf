@@ -1,23 +1,21 @@
-# alb.tf
-
 resource "aws_lb" "strapi" {
-  name               = "${var.project_name}-alb"
+  name               = "${var.project_name}-${var.aws_region}-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.strapi_sg.id]
   subnets            = [aws_subnet.public_a.id, aws_subnet.public_b.id]
 
   tags = {
-    Name = "${var.project_name}-alb"
+    Name = "${var.project_name}-${var.aws_region}-alb"
   }
 }
 
 resource "aws_lb_target_group" "strapi" {
-  name         = "${var.project_name}-tg"
+  name         = "${var.project_name}-${var.aws_region}-tg"
   port         = 1337
   protocol     = "HTTP"
   vpc_id       = aws_vpc.main.id
-  target_type  = "ip"  
+  target_type  = "ip"
 
   health_check {
     path                = "/admin"
@@ -41,13 +39,10 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_ecs_service" "strapi" {
-  name            = "${var.project_name}-service"
+  name            = "${var.project_name}-${var.aws_region}-service"
   cluster         = aws_ecs_cluster.strapi.id
   task_definition = aws_ecs_task_definition.strapi.arn
   desired_count   = 1
-
-  # Removed launch_type when using capacity provider strategy
-  # launch_type     = "FARGATE" ← REMOVED this line
 
   capacity_provider_strategy {
     capacity_provider = "FARGATE_SPOT"

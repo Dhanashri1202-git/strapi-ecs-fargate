@@ -1,5 +1,3 @@
-# terraform/network.tf
-
 resource "aws_vpc" "main" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
@@ -62,3 +60,4 @@ resource "aws_route_table_association" "b" {
   subnet_id      = aws_subnet.public_b.id
   route_table_id = aws_route_table.public.id
 }
+
