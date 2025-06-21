@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE: 03922/strapi-app:latest
+  DOCKER_IMAGE: 03922/strapi-app
   AWS_REGION: ap-south-1
 
 jobs:
