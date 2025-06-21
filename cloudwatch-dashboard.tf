@@ -13,7 +13,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           title = "ECS CPU & Memory Utilization",
           view = "timeSeries",
           stacked = false,
-          region = "eu-north-1",
+          region = "ap-south-1",
           period = 300,
           stat = "Average",
           metrics = [
@@ -32,7 +32,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           title = "Memory Utilization Only",
           view = "timeSeries",
           stacked = false,
-          region = "eu-north-1",
+          region = "ap-south-1",
           metrics = [
             [ "AWS/ECS", "MemoryUtilization", "ServiceName", "strapi-ecs-service", "ClusterName", "strapi-ecs-cluster" ]
           ]
