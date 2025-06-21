@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE: adarshdogra1122/strapi-app
-  AWS_REGION: eu-north-1
+  DOCKER_IMAGE: 03922/strapi-app:latest
+  AWS_REGION: ap-south-1
 
 jobs:
   build-push-deploy:
