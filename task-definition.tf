@@ -22,6 +22,10 @@ resource "aws_ecs_task_definition" "strapi" {
         {
           name  = "NODE_ENV"
           value = "production"
+        },
+        {
+          name  = "APP_KEYS"
+          value = "myAppKeyA,myAppKeyB"
         }
       ]
       logConfiguration = {
