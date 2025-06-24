@@ -1,26 +1,27 @@
-# Use official Node.js base image
+# Use Node 20 (LTS)
 FROM node:20
 
-# Set working directory
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
+
+# Install all dependencies
 RUN npm install
 
-# Copy the entire Strapi project
+# Copy all app files
 COPY . .
 
-# Copy the environment variables file
-# (Make sure .env is in your context and not .dockerignored)
-# COPY .env .env
-
-# Build the admin panel
+# Build the admin panel (Strapi Admin UI)
 RUN npm run build
 
-# Expose port Strapi uses
+# Expose Strapi's default port
 EXPOSE 1337
 
-# Start Strapi
+# Set environment variable for production (important for AWS)
+ENV NODE_ENV=production
+
+# Start the Strapi server
 CMD ["npm", "run", "start"]
 
